@@ -97,7 +97,31 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+         # while self.light_is_on() == False:
+        #     self.set_light_on()
+        #     for i in range(0, (len(self._list) - 1)):
+        #         if self._list[i] > self._list[i + 1]:
+        #             self.set_light_off()
+        #             self._list[i], self._list[i + 1] = self._list[i + 1], self._list[i]
+        # return self._list
+
+        #call swap since robot inits with None, that way you can compare as you go through arr
+        self.swap_item()
+        #adress every index of list
+        for x in range(len(self._list)):
+            while self.can_move_right(): #if we are able to keep moving right...
+                if self.compare_item() == -1: #check if value held < current index position, and if so...
+                    self.swap_item()    #swap held item for current index item because it's larger
+                self.move_right() #keep moving right because we are able to
+
+            #same logic, only this time we make our way back to the beginning 
+            while self.can_move_left():
+                if self.compare_item() == 1:
+                    self.swap_item()
+                self.move_left()
+        #swap that first value again because we did leave a None initially
+        self.swap_item()
+        print('item: ', self._item)
 
 
 if __name__ == "__main__":
